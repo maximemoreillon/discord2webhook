@@ -24,11 +24,22 @@ async def on_message(message):
     if str(message.channel.id) != DISCORD_CHANNEL_ID:
         return
 
-    print(f"Realying message from user {message.author.name}: {message.content}")
-
     headers = {}  # TODO: make customizable
 
-    res = requests.post(url=WEBHOOK_URL, json=message, headers=headers)
+    json = {
+        "id": message.id,
+        "content": message.content,
+        "author": {
+            "id": message.author.id,
+            "name": message.author.name,
+            "discriminator": message.author.discriminator,
+        },
+        "channel_id": message.channel.id,
+        "guild_id": message.guild.id if message.guild else None,
+        "created_at": message.created_at.isoformat(),  # Timestamps must be converted to strings
+    }
+
+    res = requests.post(url=WEBHOOK_URL, json=json, headers=headers)
 
     if not res.ok:
         print(res.text)
