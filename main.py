@@ -21,7 +21,7 @@ print(f"Relaying messages from Discord channel {DISCORD_CHANNEL_ID} to {WEBHOOK_
 @client.event
 async def on_message(message):
 
-    if str(message.channel.id) != DISCORD_CHANNEL_ID:
+    if DISCORD_CHANNEL_ID and str(message.channel.id) != DISCORD_CHANNEL_ID:
         return
 
     headers = {}  # TODO: make customizable
