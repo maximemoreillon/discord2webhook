@@ -15,7 +15,10 @@ intents.message_content = True
 
 client = discord.Client(intents=intents)
 
-print(f"Relaying messages from Discord channel {DISCORD_CHANNEL_ID} to {WEBHOOK_URL}")
+print(f"Relaying messages from Discord to {WEBHOOK_URL}")
+
+if DISCORD_CHANNEL_ID:
+    print(f"Ignoring messages from channels other than {DISCORD_CHANNEL_ID}")
 
 
 @client.event
