@@ -30,16 +30,16 @@ async def on_message(message):
     headers = {}  # TODO: make customizable
 
     json = {
-        "id": message.id,
+        "id": str(message.id),
         "content": message.content,
         "author": {
-            "id": message.author.id,
+            "id": str(message.author.id),
             "name": message.author.name,
             "discriminator": message.author.discriminator,
         },
-        "channel_id": message.channel.id,
-        "guild_id": message.guild.id if message.guild else None,
-        "created_at": message.created_at.isoformat(),  # Timestamps must be converted to strings
+        "channel_id": str(message.channel.id),
+        "guild_id": str(message.guild.id) if message.guild else None,
+        "created_at": message.created_at.isoformat(),
     }
 
     res = requests.post(url=WEBHOOK_URL, json=json, headers=headers)
